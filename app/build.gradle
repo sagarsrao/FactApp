@@ -55,10 +55,21 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
 
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
+    implementation group: 'io.reactivex', name: 'rxjava', version: '1.2.3'
+
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    kapt 'com.jakewharton:butterknife-compiler:10.1.0'
+
 
     /* Picasso lib for image loading  */
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
     /* Android Architecture Component - ConstraintLayout  */
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 

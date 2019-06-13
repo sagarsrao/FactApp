@@ -1,4 +1,4 @@
-package com.wipro.factapp.feautres.models
+package com.wipro.factapp.feautres.factmodule.models
 
 import com.squareup.moshi.Json
 
