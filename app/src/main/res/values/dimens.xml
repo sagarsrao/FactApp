@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="margin_08_dp">8dp</dimen>
+    <dimen name="margin_2_dp">2dp</dimen>
+    <dimen name="margin_04_dp">4dp</dimen>
+    <dimen name="text_size_16_sp">16sp</dimen>
+    <dimen name="width_300_dp">300dp</dimen>
+    <dimen name="size_04_dp">4dp</dimen>
+    <dimen name="text_size_14_sp">14sp</dimen>
+    <dimen name="margin_05_dp">5dp</dimen>
+</resources>

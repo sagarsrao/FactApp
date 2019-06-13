@@ -30,9 +30,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_size_20sp"
                     android:textColor="@android:color/white"
-                    android:text="Facts"/>
+                    android:text="@string/facts"/>
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -59,9 +59,9 @@
                  android:visibility="gone"
                  android:layout_width="wrap_content" android:layout_height="wrap_content" android:progress="25"
                  app:layout_constraintStart_toStartOf="parent"
-                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                 android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
-                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout4" android:layout_marginBottom="8dp"
+                 android:layout_marginStart="@dimen/margin_08_dp" app:layout_constraintEnd_toEndOf="parent"
+                 android:layout_marginEnd="@dimen/margin_08_dp" android:layout_marginTop="@dimen/margin_08_dp"
+                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout4" android:layout_marginBottom="@dimen/margin_08_dp"
                  app:layout_constraintBottom_toBottomOf="@+id/linearLayout" app:layout_constraintHorizontal_bias="0.498"
                  app:layout_constraintVertical_bias="0.603"/>
 
