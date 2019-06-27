@@ -19,8 +19,14 @@ import com.wipro.factapp.feautres.factmodule.models.RowsItem
 import com.wipro.factapp.feautres.util.NetworkUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
+import android.R.attr.top
+import android.os.Parcelable
+
 
 class FactActivity : BaseActivity(), FactActivityMVPView {
+
+
+    var mLayoutManager: LinearLayoutManager? = null
     override fun showFactResults(rowsItem: List<RowsItem?>?) {
 
         Log.d("rowsItem", "" + rowsItem)
@@ -48,6 +54,9 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    var mListstate: Parcelable? = null
+
+
     override fun layoutId(): Int {
 
         return R.layout.activity_main
@@ -66,6 +75,15 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
         Toast.makeText(this@FactActivity, error, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onResume() {
+        super.onResume()
+        //set recyclerview position
+        if (mListstate != null) {
+            mLayoutManager?.onRestoreInstanceState(mListstate)
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -73,6 +91,9 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
         mPresenter.attachView(this)
 
         setSupportActionBar(fact_tool_bar)
+
+        mLayoutManager = LinearLayoutManager(this@FactActivity)
+
 
 
         if (NetworkUtil.isNetworkConnected(this@FactActivity)) {
@@ -83,6 +104,8 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
 
     }
 
+    val LIST_STATE_RV = "LIST_STATE_RV"
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
@@ -90,6 +113,19 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
         return super.onCreateOptionsMenu(menu)
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mListstate = mLayoutManager?.onSaveInstanceState()
+        outState.putParcelable(LIST_STATE_RV, mListstate)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState != null) {
+            mListstate = savedInstanceState.getParcelable(LIST_STATE_RV)
+        }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle presses on the action bar menu items
