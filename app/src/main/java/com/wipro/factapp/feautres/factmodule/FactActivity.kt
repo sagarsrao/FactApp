@@ -131,6 +131,7 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
             if (NetworkUtil.isNetworkConnected(this@FactActivity)) {
                 mPresenter.getFactDataForSwipeToRefresh()
             } else {
+                swipecontainer.isRefreshing = false
                 Toast.makeText(this@FactActivity, "Please check the internet connection", Toast.LENGTH_SHORT).show()
             }
 
