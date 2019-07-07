@@ -21,18 +21,33 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import android.R.attr.top
 import android.os.Parcelable
+import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 
 class FactActivity : BaseActivity(), FactActivityMVPView {
+    override fun showFactResultsForSwipeToRefresh(rows: List<RowsItem?>) {
+
+
+        viewAdapter = FactDataAdapter(rows as ArrayList<RowsItem>, this)
+        (viewAdapter as FactDataAdapter).clear()
+        (viewAdapter as FactDataAdapter).addAll(rows)
+        swipecontainer.isRefreshing = false
+
+
+    }
 
 
     var mLayoutManager: LinearLayoutManager? = null
+
     override fun showFactResults(rowsItem: List<RowsItem?>?) {
 
-        Log.d("rowsItem", "" + rowsItem)
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = FactDataAdapter(rowsItem as ArrayList<RowsItem>)
+        viewManager = LinearLayoutManager(this) as RecyclerView.LayoutManager
+        viewAdapter = FactDataAdapter(rowsItem as ArrayList<RowsItem>, this)
+
+
+
 
 
         rv_fact.apply {
@@ -43,6 +58,10 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
             adapter!!.notifyDataSetChanged()
         }
 
+
+        /*  (viewAdapter as FactDataAdapter).clear()
+          (viewAdapter as FactDataAdapter).addAll(rowsItem as ArrayList<RowsItem>)
+          swipecontainer.isRefreshing = false*/
 
     }
 
@@ -92,6 +111,10 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
 
         setSupportActionBar(fact_tool_bar)
 
+
+        fact_tool_bar.setTitle("Facts")
+        fact_tool_bar.setTitleTextColor(ContextCompat.getColor(this@FactActivity, R.color.white))
+
         mLayoutManager = LinearLayoutManager(this@FactActivity)
 
 
@@ -101,6 +124,25 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
         } else {
             Toast.makeText(this@FactActivity, "Please check the internet connection", Toast.LENGTH_SHORT).show()
         }
+
+        swipecontainer.setOnRefreshListener {
+
+
+            if (NetworkUtil.isNetworkConnected(this@FactActivity)) {
+                mPresenter.getFactDataForSwipeToRefresh()
+            } else {
+                Toast.makeText(this@FactActivity, "Please check the internet connection", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        swipecontainer.setColorSchemeResources(
+            R.color.colorAccent,
+            R.color.colorAccent,
+            R.color.colorAccent,
+            R.color.colorAccent
+        );
+
 
     }
 

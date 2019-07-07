@@ -12,6 +12,7 @@ interface FactActivityMVPView : MvpView {
     fun showError(error: String)
 
     fun showFactResults(rowsItem: List<RowsItem?>?)
+    fun showFactResultsForSwipeToRefresh(rows: List<RowsItem?>)
 
 
 }

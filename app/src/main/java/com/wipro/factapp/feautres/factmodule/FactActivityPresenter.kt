@@ -25,7 +25,38 @@ constructor(private val dataManager: DataManager) : BasePresenter<FactActivityMV
 
                 mvpView?.apply {
                     hideProgress()
+
                     showFactResults(result.rows)
+
+                }
+
+
+            }, { throwable ->
+
+                mvpView?.apply {
+
+                    hideProgress()
+                    showError("No Results Found")
+                }
+            })
+
+
+    }
+
+
+    @SuppressLint("CheckResult")
+    fun getFactDataForSwipeToRefresh() {
+        checkViewAttached()
+        mvpView?.showProgress()
+        dataManager.getTheDataFacts()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ result ->
+
+                mvpView?.apply {
+                    hideProgress()
+
+                    showFactResultsForSwipeToRefresh(result.rows!!)
 
                 }
 

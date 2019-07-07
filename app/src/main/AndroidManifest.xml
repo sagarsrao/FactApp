@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".FactAppStarterApplication"
             android:allowBackup="true"
@@ -12,9 +13,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".feautres.factmodule.FactActivity"
-                  android:theme="@style/AppTheme.NoActionBar"
-                  android:label="">
+        <activity android:name=".feautres.factmodule.factdetailsActivity.FactDetailActivity"
+                  android:label=" "
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".feautres.factmodule.FactActivity"
+                android:label="Facts"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
