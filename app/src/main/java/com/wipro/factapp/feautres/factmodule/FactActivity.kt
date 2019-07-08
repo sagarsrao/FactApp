@@ -24,7 +24,7 @@ import android.os.Parcelable
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
-
+/*This is the main screen which is responsible for showing facts data from the api*/
 class FactActivity : BaseActivity(), FactActivityMVPView {
     override fun showFactResultsForSwipeToRefresh(rows: List<RowsItem?>) {
 

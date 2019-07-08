@@ -12,6 +12,8 @@ import com.wipro.factapp.feautres.factmodule.factdetailsActivity.FactDetailActiv
 import com.wipro.factapp.feautres.factmodule.models.RowsItem
 import kotlinx.android.synthetic.main.adapter_fact_activity.view.*
 
+
+/*This class is responsible for holding the view objects through viewHolder*/
 class FactDataAdapter(private val factsList: ArrayList<RowsItem>, private var context: Context) :
     RecyclerView.Adapter<FactDataAdapter.FactHolder>() {
 

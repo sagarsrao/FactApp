@@ -8,6 +8,9 @@ import com.wipro.factapp.injection.module.ActivityModule
 import dagger.Subcomponent
 
 
+
+
+/*The below contains all the activity level components*/
 @PerActivity
 @Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {

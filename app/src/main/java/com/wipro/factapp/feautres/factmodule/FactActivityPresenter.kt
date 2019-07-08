@@ -9,6 +9,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+/*This is the presenter class which contains api functions or the external source functions which connects
+ to the view*/
 @ConfigPersistent
 class FactActivityPresenter @Inject
 constructor(private val dataManager: DataManager) : BasePresenter<FactActivityMVPView>() {

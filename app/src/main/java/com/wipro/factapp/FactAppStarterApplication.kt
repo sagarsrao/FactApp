@@ -9,6 +9,8 @@ import com.wipro.factapp.injection.module.NetworkModule
 
 import timber.log.Timber
 
+
+/*This is the starting point of the application*/
 class FactAppStarterApplication : Application() {
 
     private var appComponent: AppComponent? = null

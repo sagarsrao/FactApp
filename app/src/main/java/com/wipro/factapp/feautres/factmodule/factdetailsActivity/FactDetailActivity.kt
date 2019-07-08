@@ -10,6 +10,8 @@ import com.wipro.factapp.feautres.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_fact_detail.*
 import javax.inject.Inject
 
+
+/*This class is responsible for showing  details things like title , description and image*/
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class FactDetailActivity : BaseActivity(), FactDetailActivityMVPView {
     @Inject

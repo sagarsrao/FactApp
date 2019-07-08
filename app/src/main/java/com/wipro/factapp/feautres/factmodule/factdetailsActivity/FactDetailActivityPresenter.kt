@@ -9,10 +9,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
+
+/*This class is responsible for having all the business logic related to the API or the external sources*/
 @ConfigPersistent
 class FactDetailActivityPresenter @Inject
 constructor(private val dataManager: DataManager) : BasePresenter<FactDetailActivityMVPView>() {
-
 
 
 }

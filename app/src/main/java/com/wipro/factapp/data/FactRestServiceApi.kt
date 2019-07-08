@@ -4,6 +4,8 @@ import com.wipro.factapp.feautres.factmodule.models.ResFactDataList
 import io.reactivex.Observable
 import retrofit2.http.GET
 
+
+/*This class is responsible for listing down all the get and post api's*/
 interface FactRestServiceApi {
 
 

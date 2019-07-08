@@ -10,6 +10,8 @@ import dagger.Component
 
 import javax.inject.Singleton
 
+
+/*The below contains all the project level dependecies*/
 @Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
