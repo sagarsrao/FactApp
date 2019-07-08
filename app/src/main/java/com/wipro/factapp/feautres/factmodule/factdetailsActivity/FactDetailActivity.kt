@@ -39,12 +39,54 @@ class FactDetailActivity : BaseActivity(), FactDetailActivityMVPView {
         finish()
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("TITLE",mTitle)
+        outState.putString("DESC",mdesc)
+        outState.putString("IMAGE_REF",mImageHref)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fact_detail)
         activityComponent().inject(this)
         mPresenter.attachView(this)
         setSupportActionBar(fact_tool_bar_details)
+
+
+        if(savedInstanceState!=null){
+
+            mTitle = savedInstanceState.getString("TITLE")
+            mdesc = savedInstanceState.getString("DESC")
+            mImageHref = savedInstanceState.getString("IMAGE_REF")
+
+        }
+        try {
+
+
+            if (mTitle.isNullOrEmpty()) {
+                tv_facts_title_details.text = "No Title"
+                hideProgress()
+            } else {
+                hideProgress()
+                tv_facts_title_details.text = mTitle
+            }
+
+            if (mdesc.isNullOrEmpty()) {
+                hideProgress()
+                textView_desc.text = "No description found"
+            } else {
+                hideProgress()
+                textView_desc.text = mdesc
+            }
+
+
+            Glide.with(this).load(mImageHref).placeholder(R.drawable.ic_photo_black_24dp)
+                .error(R.drawable.ic_photo_black_24dp).into(iv_fact_details)
+
+        } catch (e: Exception) {
+        }
+
 
         showProgress()
 

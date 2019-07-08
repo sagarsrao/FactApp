@@ -15,6 +15,7 @@
             android:theme="@style/AppTheme">
         <activity android:name=".feautres.factmodule.factdetailsActivity.FactDetailActivity"
                   android:label=" "
+
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.actionWithAssertions
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem
@@ -33,7 +31,10 @@ import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import androidx.test.espresso.Espresso.onView
 import org.hamcrest.Matchers.*
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.UiController
 import org.junit.After
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.action.ViewActions.*
 
 
 @RunWith(AndroidJUnit4::class)
@@ -69,5 +70,28 @@ public class FactActivityTest {
         onView(withId(R.id.refresh)).perform(click())
     }
 
+
+    fun withCustomConstraintsSwipeToRefresh(action: ViewAction, constraints: Matcher<View>): ViewAction {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return constraints
+            }
+
+            override fun getDescription(): String {
+                return action.description
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                action.perform(uiController, view)
+            }
+        }
+    }
+
+    @Test
+    fun testTheSwipeToRefreshFunctionallity(){
+
+        onView(withId(R.id.swipecontainer)).perform(withCustomConstraintsSwipeToRefresh(swipeDown(), isDisplayingAtLeast(78)))
+
+    }
 
 }
