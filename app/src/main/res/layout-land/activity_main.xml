@@ -41,42 +41,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipecontainer"
-            android:layout_width="match_parent"
-            android:layout_marginTop="?actionBarSize"
-            android:layout_height="match_parent">
-
-        <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/linearLayout"
-                tools:layout_editor_absoluteY="56dp">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_fact"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="vertical">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-        </LinearLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-    <ProgressBar android:id="@+id/progress_fact"
-                 android:visibility="gone"
-                 android:layout_width="wrap_content" android:layout_height="wrap_content" android:progress="25"
-                 app:layout_constraintStart_toStartOf="parent"
-                 android:layout_marginStart="@dimen/margin_08_dp" app:layout_constraintEnd_toEndOf="parent"
-                 android:layout_marginEnd="@dimen/margin_08_dp" android:layout_marginTop="@dimen/margin_08_dp"
-                 app:layout_constraintTop_toBottomOf="@+id/appBarLayout4"
-                 android:layout_marginBottom="@dimen/margin_08_dp"
-                 app:layout_constraintBottom_toBottomOf="@+id/swipecontainer" app:layout_constraintHorizontal_bias="0.498"
-                 app:layout_constraintVertical_bias="0.603"/>
+    <include layout="@layout/layout_activity_main_additional_fields" app:layout_constraintStart_toStartOf="parent"
+             android:layout_marginEnd="411dp" app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+             android:layout_marginBottom="731dp" app:layout_constraintHorizontal_bias="0.52"
+             android:layout_height="match_parent" android:layout_width="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

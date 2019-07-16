@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.wipro.factapp.R
 import com.wipro.factapp.feautres.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_fact_detail.*
+import kotlinx.android.synthetic.main.layout_activity_fact_detail_additional_fields.*
 import javax.inject.Inject
 
 

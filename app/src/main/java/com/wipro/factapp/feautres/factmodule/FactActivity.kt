@@ -23,6 +23,7 @@ import android.R.attr.top
 import android.os.Parcelable
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import kotlinx.android.synthetic.main.layout_activity_main_additional_fields.*
 
 /*This is the main screen which is responsible for showing facts data from the api*/
 class FactActivity : BaseActivity(), FactActivityMVPView {
