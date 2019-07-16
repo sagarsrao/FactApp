@@ -44,5 +44,16 @@ class FactActivityPresenterTest {
 
     }
 
+    @Test
+    fun onSuccessViewResults() {
+        Mockito.verify(mView.showFactResults(Mockito.anyList()))
+    }
+
+    @Test
+    fun onFailureViewResults() {
+
+        Mockito.verify(mView.showError("Data not Found"))
+    }
+
 
 }
