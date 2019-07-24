@@ -6,7 +6,6 @@ import com.wipro.factapp.feautres.factmodule.FactActivityMVPView
 import com.wipro.factapp.feautres.factmodule.FactActivityPresenter
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
 import org.mockito.Mockito
 import javax.inject.Inject
 
@@ -40,7 +39,7 @@ class FactActivityPresenterTest {
     @Test
     fun testSuccessAndFailureFactResults() {
 
-        Mockito.verify(mPresenter.getFactData())
+        Mockito.verify(mPresenter.getFactData(mPreferences))
 
     }
 

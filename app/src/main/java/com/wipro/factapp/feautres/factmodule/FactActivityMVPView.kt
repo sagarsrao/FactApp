@@ -8,14 +8,11 @@ import com.wipro.factapp.feautres.factmodule.models.RowsItem
 * coming from the presenter*/
 interface FactActivityMVPView : MvpView {
 
-    /*fun showProgress()
 
-    fun hideProgress()*/
 
     fun showError(error: String)
 
     fun showFactResults(rowsItem: List<RowsItem?>?)
-    fun showFactResultsForSwipeToRefresh(rows: List<RowsItem?>)
 
 
 }

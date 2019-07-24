@@ -25,17 +25,6 @@ import kotlinx.android.synthetic.main.layout_activity_main_additional_fields.*
 
 /*This is the main screen which is responsible for showing facts data from the api*/
 class FactActivity : BaseActivity(), FactActivityMVPView {
-    override fun showFactResultsForSwipeToRefresh(rows: List<RowsItem?>) {
-
-
-        viewAdapter = FactDataAdapter(rows as ArrayList<RowsItem>, this, mPreferences)
-        (viewAdapter as FactDataAdapter).clear()
-        (viewAdapter as FactDataAdapter).addAll(rows)
-        swipecontainer.isRefreshing = false
-
-
-    }
-
 
     var mLayoutManager: LinearLayoutManager? = null
 
@@ -54,11 +43,6 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
 
             viewManager = LinearLayoutManager(this) as RecyclerView.LayoutManager
             viewAdapter = FactDataAdapter(rowsItem as ArrayList<RowsItem>, this, mPreferences)
-
-
-
-
-
             rv_fact.apply {
 
                 setHasFixedSize(true)
@@ -181,7 +165,7 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
 
 
         if (NetworkUtil.isNetworkConnected(this@FactActivity)) {
-            mPresenter.getFactData()
+            mPresenter.getFactData(mPreferences)
         } else {
             Toast.makeText(this@FactActivity, "Please check the internet connection", Toast.LENGTH_SHORT).show()
         }
@@ -192,7 +176,7 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
             if (NetworkUtil.isNetworkConnected(this@FactActivity)) {
                 mPreferences.putDataForInt("SWIPE_CONSTANT", 1)
 
-                mPresenter.getFactData()
+                mPresenter.getFactData(mPreferences)
             } else {
                 swipecontainer.isRefreshing = false
                 Toast.makeText(this@FactActivity, "Please check the internet connection", Toast.LENGTH_SHORT).show()
@@ -238,7 +222,7 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
         when (item.itemId) {
             R.id.refresh -> {
                 if (NetworkUtil.isNetworkConnected(this@FactActivity)) {
-                    mPresenter.getFactData()
+                    mPresenter.getFactData(mPreferences)
                 } else {
                     Toast.makeText(this@FactActivity, "Please check the internet connection", Toast.LENGTH_SHORT).show()
                 }
