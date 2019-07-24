@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Fact</string>
     <string name="facts">Facts</string>
+    <string name="prefName">PREF</string>
 
 
     <style name="AppTheme.NoActionBar">

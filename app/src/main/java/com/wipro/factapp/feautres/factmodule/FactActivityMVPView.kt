@@ -8,9 +8,9 @@ import com.wipro.factapp.feautres.factmodule.models.RowsItem
 * coming from the presenter*/
 interface FactActivityMVPView : MvpView {
 
-    fun showProgress()
+    /*fun showProgress()
 
-    fun hideProgress()
+    fun hideProgress()*/
 
     fun showError(error: String)
 

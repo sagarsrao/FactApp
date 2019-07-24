@@ -28,12 +28,13 @@ constructor(private val dataManager: DataManager) : BasePresenter<FactActivityMV
                 mvpView?.apply {
                     hideProgress()
 
+
                     showFactResults(result.rows)
 
                 }
 
 
-            }, { throwable ->
+            }, { _ ->
 
                 mvpView?.apply {
 
@@ -63,7 +64,7 @@ constructor(private val dataManager: DataManager) : BasePresenter<FactActivityMV
                 }
 
 
-            }, { throwable ->
+            }, { _ ->
 
                 mvpView?.apply {
 

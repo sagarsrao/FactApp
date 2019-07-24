@@ -2,16 +2,13 @@
 
 package com.wipro.factapp.feautres.factmodule
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.wipro.factapp.R
 import com.wipro.factapp.feautres.base.BaseActivity
 import com.wipro.factapp.feautres.factmodule.adapter.FactDataAdapter
@@ -19,10 +16,11 @@ import com.wipro.factapp.feautres.factmodule.models.RowsItem
 import com.wipro.factapp.feautres.util.NetworkUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
-import android.R.attr.top
 import android.os.Parcelable
 import androidx.core.content.ContextCompat
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.wipro.factapp.data.local.PreferencesHelper
+import com.wipro.factapp.feautres.util.CustomScrollListener
+import kotlinx.android.synthetic.main.adapter_fact_activity.view.*
 import kotlinx.android.synthetic.main.layout_activity_main_additional_fields.*
 
 /*This is the main screen which is responsible for showing facts data from the api*/
@@ -30,7 +28,7 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
     override fun showFactResultsForSwipeToRefresh(rows: List<RowsItem?>) {
 
 
-        viewAdapter = FactDataAdapter(rows as ArrayList<RowsItem>, this)
+        viewAdapter = FactDataAdapter(rows as ArrayList<RowsItem>, this, mPreferences)
         (viewAdapter as FactDataAdapter).clear()
         (viewAdapter as FactDataAdapter).addAll(rows)
         swipecontainer.isRefreshing = false
@@ -44,32 +42,90 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
     override fun showFactResults(rowsItem: List<RowsItem?>?) {
 
 
-        viewManager = LinearLayoutManager(this) as RecyclerView.LayoutManager
-        viewAdapter = FactDataAdapter(rowsItem as ArrayList<RowsItem>, this)
+        if (mPreferences.getDataForInt("SWIPE_CONSTANT") == 1) {
+
+            viewAdapter = FactDataAdapter(rowsItem as ArrayList<RowsItem>, this, mPreferences)
+            (viewAdapter as FactDataAdapter).clear()
+            (viewAdapter as FactDataAdapter).addAll(rowsItem)
+            swipecontainer.isRefreshing = false
+
+        } else {
+
+
+            viewManager = LinearLayoutManager(this) as RecyclerView.LayoutManager
+            viewAdapter = FactDataAdapter(rowsItem as ArrayList<RowsItem>, this, mPreferences)
 
 
 
 
 
-        rv_fact.apply {
+            rv_fact.apply {
 
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-            adapter!!.notifyDataSetChanged()
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+                adapter!!.notifyDataSetChanged()
+            }
         }
 
 
-        /*  (viewAdapter as FactDataAdapter).clear()
-          (viewAdapter as FactDataAdapter).addAll(rowsItem as ArrayList<RowsItem>)
-          swipecontainer.isRefreshing = false*/
+
+
+
+        rv_fact.addOnScrollListener(object : CustomScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy < 0) run {
+
+                    val result =
+                        recyclerView.findViewHolderForAdapterPosition(mPreferences.getDataForInt("RECYCLER_ADAPTER_POSITION"))
+                            ?.itemView?.textView_main_headline?.text.toString()
+
+                    if (result.isNullOrEmpty() or result.equals("null")) {
+                        fact_tool_bar.title = "Facts"
+                    } else {
+                        fact_tool_bar.title =
+                            recyclerView.findViewHolderForAdapterPosition(mPreferences.getDataForInt("RECYCLER_ADAPTER_POSITION"))
+                                ?.itemView?.textView_main_headline?.text.toString()
+                    }
+
+
+                } else if (dy > 0) {
+
+                    val results =
+                        recyclerView.findViewHolderForAdapterPosition(mPreferences.getDataForInt("RECYCLER_ADAPTER_POSITION"))
+                            ?.itemView?.textView_main_headline?.text.toString()
+
+                    if (results.isNullOrEmpty() or results.equals("null")) {
+                        fact_tool_bar.title = "Facts"
+                    } else {
+                        fact_tool_bar.title =
+                            recyclerView.findViewHolderForAdapterPosition(mPreferences.getDataForInt("RECYCLER_ADAPTER_POSITION"))
+                                ?.itemView?.textView_main_headline?.text.toString()
+                    }
+
+
+                }
+
+
+            }
+        })
+
 
     }
 
 
     @Inject
     lateinit var mPresenter: FactActivityPresenter
-
+    lateinit var mPreferences: PreferencesHelper
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -112,11 +168,15 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
 
         setSupportActionBar(fact_tool_bar)
 
+        mPreferences = PreferencesHelper(applicationContext)
+
 
         fact_tool_bar.setTitle("Facts")
         fact_tool_bar.setTitleTextColor(ContextCompat.getColor(this@FactActivity, R.color.white))
 
         mLayoutManager = LinearLayoutManager(this@FactActivity)
+
+        mPreferences.clear()
 
 
 
@@ -130,7 +190,9 @@ class FactActivity : BaseActivity(), FactActivityMVPView {
 
 
             if (NetworkUtil.isNetworkConnected(this@FactActivity)) {
-                mPresenter.getFactDataForSwipeToRefresh()
+                mPreferences.putDataForInt("SWIPE_CONSTANT", 1)
+
+                mPresenter.getFactData()
             } else {
                 swipecontainer.isRefreshing = false
                 Toast.makeText(this@FactActivity, "Please check the internet connection", Toast.LENGTH_SHORT).show()

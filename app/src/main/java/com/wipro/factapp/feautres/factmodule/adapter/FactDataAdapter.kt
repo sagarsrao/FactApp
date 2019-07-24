@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wipro.factapp.R
-import com.wipro.factapp.feautres.factmodule.factdetailsActivity.FactDetailActivity
+import com.wipro.factapp.data.local.PreferencesHelper
 import com.wipro.factapp.feautres.factmodule.models.RowsItem
 import kotlinx.android.synthetic.main.adapter_fact_activity.view.*
 
 
 /*This class is responsible for holding the view objects through viewHolder*/
-class FactDataAdapter(private val factsList: ArrayList<RowsItem>, private var context: Context) :
+class FactDataAdapter(
+    private val factsList: ArrayList<RowsItem>,
+    private var context: Context,var
+    mPreferences: PreferencesHelper
+) :
     RecyclerView.Adapter<FactDataAdapter.FactHolder>() {
 
 
@@ -25,10 +29,21 @@ class FactDataAdapter(private val factsList: ArrayList<RowsItem>, private var co
 
     override fun getItemCount(): Int = factsList.size
 
+
+    open fun getItem(position: Int): RowsItem {
+
+        return factsList.get(position)
+    }
+
+
     override fun onBindViewHolder(holder: FactHolder, position: Int) {
 
         val factData = factsList[position]
         holder.bindData(factData, context)
+        mPreferences.putDataForInt("RECYCLER_ADAPTER_POSITION",position)
+
+
+
 
 
     }
@@ -62,7 +77,7 @@ class FactDataAdapter(private val factsList: ArrayList<RowsItem>, private var co
                 view.card_all_cases.visibility = View.GONE
             }
 
-            view.card_all_cases.setOnClickListener {
+            /*view.card_all_cases.setOnClickListener {
 
                 val factDetailsIntent = Intent(context, FactDetailActivity::class.java)
                 factDetailsIntent.putExtra("fact_title", factData.title)
@@ -70,7 +85,7 @@ class FactDataAdapter(private val factsList: ArrayList<RowsItem>, private var co
                 factDetailsIntent.putExtra("fact_images", factData.imageHref)
                 context.startActivity(factDetailsIntent)
 
-            }
+            }*/
 
         }
 
@@ -83,12 +98,12 @@ class FactDataAdapter(private val factsList: ArrayList<RowsItem>, private var co
     }
 
 
-    fun clear(){
+    fun clear() {
         factsList.clear()
         notifyDataSetChanged()
     }
 
-    fun addAll(factsList: ArrayList<RowsItem>){
+    fun addAll(factsList: ArrayList<RowsItem>) {
         factsList.addAll(factsList)
     }
 }
