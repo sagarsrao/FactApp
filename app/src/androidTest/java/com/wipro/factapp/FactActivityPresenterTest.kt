@@ -2,6 +2,7 @@ package com.wipro.factapp
 
 import com.wipro.factapp.data.DataManager
 import com.wipro.factapp.data.FactRestServiceApi
+import com.wipro.factapp.data.local.PreferencesHelper
 import com.wipro.factapp.feautres.factmodule.FactActivityMVPView
 import com.wipro.factapp.feautres.factmodule.FactActivityPresenter
 import org.junit.Before
@@ -24,6 +25,9 @@ class FactActivityPresenterTest {
     @Inject
     lateinit var factApi: FactRestServiceApi
 
+    @Inject
+    lateinit var mPrefrences:PreferencesHelper
+
 
     @Before
     fun setUp() {
@@ -39,7 +43,7 @@ class FactActivityPresenterTest {
     @Test
     fun testSuccessAndFailureFactResults() {
 
-        Mockito.verify(mPresenter.getFactData(mPreferences))
+        Mockito.verify(mPresenter.getFactData(mPrefrences))
 
     }
 
